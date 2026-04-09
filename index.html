@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVOSTORE - App Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">EVOSTORE</h1>
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Buscar apps..."
+                >
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Apps Grid -->
+        <section class="apps-grid" id="appsGrid">
+            <!-- Apps carregados dinamicamente via JavaScript -->
+        </section>
+
+        <!-- App Detail Modal -->
+        <div class="modal" id="appModal">
+            <div class="modal-content">
+                <button class="modal-close" id="modalClose">&times;</button>
+                
+                <div class="modal-header">
+                    <div class="app-icon-large" id="modalIcon"></div>
+                    <div class="modal-info">
+                        <h2 id="modalName"></h2>
+                        <p class="developer" id="modalDeveloper"></p>
+                        <div class="rating-section">
+                            <div class="stars" id="modalStars"></div>
+                            <span id="modalRatingText" class="rating-text"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <p id="modalDescription" class="full-description"></p>
+                    
+                    <div class="app-info-grid">
+                        <div class="info-item">
+                            <span class="label">Tamanho</span>
+                            <span id="modalSize" class="value"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Versão</span>
+                            <span id="modalVersion" class="value"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Desenvolvedor</span>
+                            <span id="modalDevInfo" class="value"></span>
+                        </div>
+                    </div>
+
+                    <!-- Ratings Section -->
+                    <div class="ratings-section">
+                        <h3>Avaliações</h3>
+                        
+                        <div class="rating-input">
+                            <label for="userRating">Sua avaliação:</label>
+                            <div class="star-input" id="starInput">
+                                <button class="star-btn" data-star="1">★</button>
+                                <button class="star-btn" data-star="2">★</button>
+                                <button class="star-btn" data-star="3">★</button>
+                                <button class="star-btn" data-star="4">★</button>
+                                <button class="star-btn" data-star="5">★</button>
+                            </div>
+                        </div>
+
+                        <div class="comment-input">
+                            <label for="userComment">Seu comentário:</label>
+                            <textarea 
+                                id="userComment" 
+                                class="comment-textarea" 
+                                placeholder="Compartilhe sua opinião sobre o app..."
+                                maxlength="500"
+                            ></textarea>
+                            <div class="char-count">
+                                <span id="charCount">0</span>/500
+                            </div>
+                            <button id="submitReview" class="btn-submit">Enviar Avaliação</button>
+                        </div>
+
+                        <!-- Comments Display -->
+                        <div class="comments-list">
+                            <h4>Comentários</h4>
+                            <div id="commentsList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn-install" id="btnInstall">Instalar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Carrega o banco de dados de apps -->
+    <script src="apps.js"></script>
+    <!-- Carrega a lógica da app store -->
+    <script src="script.js"></script>
+</body>
+</html>
