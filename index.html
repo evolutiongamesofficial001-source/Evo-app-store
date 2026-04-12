@@ -2,121 +2,274 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EVOAPP STORE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0e27">
+    <meta name="description" content="Calculadora premium com design glassmorphism, histórico, conversão de moedas e muito mais">
+    <title>Calculator Pro - Calculadora Premium</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230a0e27' width='192' height='192'/><text x='96' y='120' font-size='80' font-weight='bold' fill='%234f46e5' text-anchor='middle' font-family='system-ui'>÷</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230a0e27' width='180' height='180'/><rect x='20' y='20' width='140' height='140' fill='%234f46e5' rx='40'/><text x='90' y='110' font-size='70' font-weight='bold' fill='%23ffffff' text-anchor='middle' font-family='system-ui'>÷</text></svg>">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <h1 class="logo">EVOAPP STORE</h1>
-            <div class="search-container">
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    class="search-input" 
-                    placeholder="Buscar apps..."
-                >
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                </svg>
-            </div>
-        </div>
-    </header>
-
-    <main class="container">
-        <!-- Apps Grid -->
-        <section class="apps-grid" id="appsGrid">
-            <!-- Apps carregados dinamicamente via JavaScript -->
-        </section>
-
-        <!-- App Detail Modal -->
-        <div class="modal" id="appModal">
-            <div class="modal-content">
-                <button class="modal-close" id="modalClose">&times;</button>
-                
-                <div class="modal-header">
-                    <div class="app-icon-large" id="modalIcon"></div>
-                    <div class="modal-info">
-                        <h2 id="modalName"></h2>
-                        <p class="developer" id="modalDeveloper"></p>
-                        <div class="rating-section">
-                            <div class="stars" id="modalStars"></div>
-                            <span id="modalRatingText" class="rating-text"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-body">
-                    <p id="modalDescription" class="full-description"></p>
-                    
-                    <div class="app-info-grid">
-                        <div class="info-item">
-                            <span class="label">Tamanho</span>
-                            <span id="modalSize" class="value"></span>
-                        </div>
-                        <div class="info-item">
-                            <span class="label">Versão</span>
-                            <span id="modalVersion" class="value"></span>
-                        </div>
-                        <div class="info-item">
-                            <span class="label">Desenvolvedor</span>
-                            <span id="modalDevInfo" class="value"></span>
-                        </div>
-                    </div>
-
-                    <!-- Ratings Section -->
-                    <div class="ratings-section">
-                        <h3>Avaliações</h3>
-                        
-                        <div class="rating-input">
-                            <label for="userRating">Sua avaliação:</label>
-                            <div class="star-input" id="starInput">
-                                <button class="star-btn" data-star="1">★</button>
-                                <button class="star-btn" data-star="2">★</button>
-                                <button class="star-btn" data-star="3">★</button>
-                                <button class="star-btn" data-star="4">★</button>
-                                <button class="star-btn" data-star="5">★</button>
-                            </div>
-                        </div>
-
-                        <div class="comment-input">
-                            <label for="userComment">Seu comentário:</label>
-                            <textarea 
-                                id="userComment" 
-                                class="comment-textarea" 
-                                placeholder="Compartilhe sua opinião sobre o app..."
-                                maxlength="500"
-                            ></textarea>
-                            <div class="char-count">
-                                <span id="charCount">0</span>/500
-                            </div>
-                            <button id="submitReview" class="btn-submit">Enviar Avaliação</button>
-                        </div>
-
-                        <!-- Comments Display -->
-                        <div class="comments-list">
-                            <h4>Comentários</h4>
-                            <div id="commentsList"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn-install" id="btnInstall">Instalar</button>
+    <div class="app-wrapper">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">Calculator Pro</h1>
+                <div class="header-actions">
+                    <button class="btn-icon" id="btnTheme" title="Alternar tema">🌙</button>
+                    <button class="btn-icon" id="btnSettings" title="Configurações">⚙️</button>
                 </div>
             </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="tabs-container">
+            <button class="tab-btn active" data-tab="calculator" title="Calculadora">
+                <span class="tab-icon">🧮</span>
+                <span class="tab-label">Calc</span>
+            </button>
+            <button class="tab-btn" data-tab="converter" title="Conversor">
+                <span class="tab-icon">💱</span>
+                <span class="tab-label">Conv</span>
+            </button>
+            <button class="tab-btn" data-tab="scientific" title="Científica">
+                <span class="tab-icon">🔬</span>
+                <span class="tab-label">Sci</span>
+            </button>
+            <button class="tab-btn" data-tab="history" title="Histórico">
+                <span class="tab-icon">📝</span>
+                <span class="tab-label">Hist</span>
+            </button>
         </div>
-    </main>
 
-    <!-- Toast Notification -->
-    <div class="toast" id="toast"></div>
+        <!-- Main Container -->
+        <main class="main-container">
+            <!-- TAB 1: CALCULATOR -->
+            <div class="tab-content active" id="tab-calculator">
+                <div class="calculator">
+                    <div class="display-section">
+                        <div class="display">
+                            <div class="display-history" id="displayHistory"></div>
+                            <div class="display-current" id="displayCurrent">0</div>
+                            <div class="display-info" id="displayInfo"></div>
+                        </div>
+                    </div>
 
-    <!-- Carrega o banco de dados de apps -->
-    <script src="apps.js"></script>
-    <!-- Carrega a lógica da app store -->
+                    <div class="buttons-grid calculator-grid">
+                        <!-- Linha 1 -->
+                        <button class="btn btn-function" data-action="clear">C</button>
+                        <button class="btn btn-function" data-action="delete">←</button>
+                        <button class="btn btn-function" data-action="percent">%</button>
+                        <button class="btn btn-operator" data-operator="/">÷</button>
+
+                        <!-- Linha 2 -->
+                        <button class="btn btn-number" data-number="7">7</button>
+                        <button class="btn btn-number" data-number="8">8</button>
+                        <button class="btn btn-number" data-number="9">9</button>
+                        <button class="btn btn-operator" data-operator="*">×</button>
+
+                        <!-- Linha 3 -->
+                        <button class="btn btn-number" data-number="4">4</button>
+                        <button class="btn btn-number" data-number="5">5</button>
+                        <button class="btn btn-number" data-number="6">6</button>
+                        <button class="btn btn-operator" data-operator="-">−</button>
+
+                        <!-- Linha 4 -->
+                        <button class="btn btn-number" data-number="1">1</button>
+                        <button class="btn btn-number" data-number="2">2</button>
+                        <button class="btn btn-number" data-number="3">3</button>
+                        <button class="btn btn-operator" data-operator="+">+</button>
+
+                        <!-- Linha 5 -->
+                        <button class="btn btn-number btn-zero" data-number="0">0</button>
+                        <button class="btn btn-number" data-number=".">.</button>
+                        <button class="btn btn-equals" data-action="equals">=</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: CONVERTER -->
+            <div class="tab-content" id="tab-converter">
+                <div class="converter">
+                    <div class="converter-header">
+                        <h2>Conversor de Unidades</h2>
+                    </div>
+
+                    <div class="converter-section">
+                        <div class="converter-group">
+                            <label for="converterType">Tipo:</label>
+                            <select id="converterType">
+                                <option value="length">Comprimento</option>
+                                <option value="weight">Peso</option>
+                                <option value="temperature">Temperatura</option>
+                                <option value="volume">Volume</option>
+                                <option value="area">Área</option>
+                            </select>
+                        </div>
+
+                        <div class="converter-inputs">
+                            <div class="input-group">
+                                <label for="converterInput">De:</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="converterInput" placeholder="0" step="any">
+                                    <select id="converterFrom">
+                                        <option value="m">Metro (m)</option>
+                                        <option value="cm">Centímetro (cm)</option>
+                                        <option value="km">Quilômetro (km)</option>
+                                        <option value="in">Polegada (in)</option>
+                                        <option value="ft">Pé (ft)</option>
+                                        <option value="yd">Jarda (yd)</option>
+                                        <option value="mi">Milha (mi)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button class="btn-swap" id="btnSwapUnits">⇄</button>
+
+                            <div class="input-group">
+                                <label for="converterOutput">Para:</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="converterOutput" placeholder="0" readonly>
+                                    <select id="converterTo">
+                                        <option value="cm">Centímetro (cm)</option>
+                                        <option value="m">Metro (m)</option>
+                                        <option value="km">Quilômetro (km)</option>
+                                        <option value="in">Polegada (in)</option>
+                                        <option value="ft">Pé (ft)</option>
+                                        <option value="yd">Jarda (yd)</option>
+                                        <option value="mi">Milha (mi)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: SCIENTIFIC -->
+            <div class="tab-content" id="tab-scientific">
+                <div class="calculator scientific">
+                    <div class="display-section">
+                        <div class="display">
+                            <div class="display-history" id="displayHistorySci"></div>
+                            <div class="display-current" id="displayCurrentSci">0</div>
+                        </div>
+                    </div>
+
+                    <div class="buttons-grid scientific-grid">
+                        <!-- Linha 1 -->
+                        <button class="btn btn-function" data-action="clear-sci">C</button>
+                        <button class="btn btn-function" data-action="delete-sci">←</button>
+                        <button class="btn btn-function" data-action="percent-sci">%</button>
+                        <button class="btn btn-operator" data-operator-sci="/">÷</button>
+
+                        <!-- Linha 2 -->
+                        <button class="btn btn-sci" data-sci="sin">sin</button>
+                        <button class="btn btn-number" data-number-sci="7">7</button>
+                        <button class="btn btn-number" data-number-sci="8">8</button>
+                        <button class="btn btn-number" data-number-sci="9">9</button>
+                        <button class="btn btn-operator" data-operator-sci="*">×</button>
+
+                        <!-- Linha 3 -->
+                        <button class="btn btn-sci" data-sci="cos">cos</button>
+                        <button class="btn btn-number" data-number-sci="4">4</button>
+                        <button class="btn btn-number" data-number-sci="5">5</button>
+                        <button class="btn btn-number" data-number-sci="6">6</button>
+                        <button class="btn btn-operator" data-operator-sci="-">−</button>
+
+                        <!-- Linha 4 -->
+                        <button class="btn btn-sci" data-sci="tan">tan</button>
+                        <button class="btn btn-number" data-number-sci="1">1</button>
+                        <button class="btn btn-number" data-number-sci="2">2</button>
+                        <button class="btn btn-number" data-number-sci="3">3</button>
+                        <button class="btn btn-operator" data-operator-sci="+">+</button>
+
+                        <!-- Linha 5 -->
+                        <button class="btn btn-sci" data-sci="sqrt">√</button>
+                        <button class="btn btn-number btn-zero" data-number-sci="0">0</button>
+                        <button class="btn btn-number" data-number-sci=".">.</button>
+                        <button class="btn btn-equals" data-action="equals-sci">=</button>
+
+                        <!-- Linha 6 -->
+                        <button class="btn btn-sci" data-sci="pow2">x²</button>
+                        <button class="btn btn-sci" data-sci="pow">x^y</button>
+                        <button class="btn btn-sci" data-sci="log">log</button>
+                        <button class="btn btn-sci" data-sci="ln">ln</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: HISTORY -->
+            <div class="tab-content" id="tab-history">
+                <div class="history-container">
+                    <div class="history-header">
+                        <h2>Histórico de Cálculos</h2>
+                        <button class="btn-small" id="btnClearAllHistory">Limpar</button>
+                    </div>
+                    <div class="history-list" id="historyList"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Configurações</h2>
+                <button class="btn-close" id="btnCloseSettings">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label>Tema</label>
+                    <div class="setting-options">
+                        <button class="setting-option active" data-theme="dark">🌙 Escuro</button>
+                        <button class="setting-option" data-theme="light">☀️ Claro</button>
+                        <button class="setting-option" data-theme="auto">🔄 Auto</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>Precisão Decimal</label>
+                    <div class="setting-options">
+                        <button class="setting-option active" data-precision="4">4 casas</button>
+                        <button class="setting-option" data-precision="6">6 casas</button>
+                        <button class="setting-option" data-precision="8">8 casas</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>Som</label>
+                    <div class="setting-options">
+                        <button class="setting-option active" data-sound="on">🔊 Ativado</button>
+                        <button class="setting-option" data-sound="off">🔇 Desativado</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>Vibrações</label>
+                    <div class="setting-options">
+                        <button class="setting-option active" data-vibration="on">📳 Ativado</button>
+                        <button class="setting-option" data-vibration="off">📴 Desativado</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btnExportData">📥 Exportar Dados</button>
+                <button class="btn btn-secondary" id="btnImportData">📤 Importar Dados</button>
+                <button class="btn btn-danger" id="btnResetData">🗑️ Resetar Tudo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Input Hidden para Import -->
+    <input type="file" id="fileInput" accept=".json" style="display: none;">
+
     <script src="script.js"></script>
 </body>
 </html>
